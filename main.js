@@ -13,12 +13,31 @@ const modalIncorrect = document.querySelector('.modal-content.incorrect');
 const levelNumber = document.querySelector('.level-number');
 const modalResult = document.querySelector('.modal-result');
 const clearBtn = document.querySelector('button.clear');
-console.log(inputList);
+
 const MAIN_VALUES = [
-    "thumb",
+    "apple",
     "thing",
     "about",
-    "check"
+    "check",
+    "child",
+    "women",
+    "human",
+    "ocean",
+    "metro",
+    "hippo",
+    "major",
+    "cheap",
+    "money",
+    "light",
+    "dream",
+    "smile",
+    "dance",
+    "beach",
+    "plant",
+    "happy",
+    "bread",
+    "break",
+    "fruit"
 ]
 
 const App = {
@@ -29,14 +48,18 @@ const App = {
     score: 0,
     level: 1,
     trueLevel: 0,
+    oldIndex: [],
     getRandomText() {
         if(this.isOn == false) {
-            const numRand = Math.floor(Math.random() * MAIN_VALUES.length);
+            let numRand = Math.floor(Math.random() * MAIN_VALUES.length);
+            while(App.oldIndex.includes(numRand)) {
+                numRand = Math.floor(Math.random() * MAIN_VALUES.length);
+            }
+            App.oldIndex.push(numRand);
             const text = MAIN_VALUES[numRand];
             const resultValue = text.split('');
             App.curentResult = [...resultValue];
             inputList[0].value = resultValue[0];
-            console.log(this.curentResult);
 
         }
 
@@ -56,9 +79,9 @@ const App = {
                 alert('please enter full input');
                 return;
             }
-            console.log(App.curentResult, dataInput);
+           
             const checkResult = App.checkData(dataInput, App.curentResult);
-            console.log(checkResult);
+            
             App.logical(checkResult, dataInput);
 
             //clear input
@@ -73,7 +96,6 @@ const App = {
             else if(result.includes(input[index])) return -1
             return 0;
         })
-        console.log(resultArray);
         const valueResult = resultArray.includes(0) || resultArray.includes(-1);
         return {
             result: !valueResult, 
@@ -81,13 +103,11 @@ const App = {
         };
     },
     logical(checkResult, dataInput) {
-        console.log(checkResult);
         const arrayResult = checkResult.resultArray.map((value, index) => {
             if(value == 1) return (`<span class="correct">${dataInput[index]}</span>`)
             else if(value == -1) return (`<span class="warn-correct">${dataInput[index]}</span>`)
             return (`<span class="incorrect">${dataInput[index]}</span>`);
         })
-        console.log(arrayResult);
         if(checkResult.result) {
            App.resetGame(true);
            this.rules();
@@ -109,7 +129,6 @@ const App = {
             App.score += 100;
             modalAnswer.classList.toggle('d-none');
             modalCorrect.classList.toggle('d-none');
-            console.log(App.score, App.level);
         } else {
             modalAnswer.classList.toggle('d-none');
             modalIncorrect.classList.toggle('d-none');
@@ -129,7 +148,6 @@ const App = {
         }
         if(App.level > App.maxLevel) {
             App.modalShow();
-            console.log(this.score);
         }
     },
     modalShow() {
