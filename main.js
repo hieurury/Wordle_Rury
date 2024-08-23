@@ -70,7 +70,7 @@ const App = {
             let dataInput = [];
             inputList.forEach(input => {
                 if(input.value != '') {
-                    dataInput.push(input.value);
+                    dataInput.push(input.value.toLowerCase());
                 } else {
                     isFull = false;
                 }
@@ -93,7 +93,7 @@ const App = {
     checkData(input, result) {
         const resultArray = result.map((value, index) => {
             if(value.toLowerCase() === input[index].toLowerCase()) return 1
-            else if(result.includes(input[index])) return -1
+            else if(result.includes(input[index].toLowerCase())) return -1
             return 0;
         })
         const valueResult = resultArray.includes(0) || resultArray.includes(-1);
