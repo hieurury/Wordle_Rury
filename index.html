@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Worldle | Rury</title>
+</head>
+<body>
+    <div class="main">
+        <section>
+            <h1 class="title">What is the text</h1>
+            <h3 class="level-number">Level 1</h3>
+        </section>
+        <div class="container">
+            <section class="input-group">
+                <input maxlength="1" type="text">
+                <input maxlength="1" type="text">
+                <input maxlength="1" type="text">
+                <input maxlength="1" type="text">
+                <input maxlength="1" type="text">
+            </section>
+
+            <section class="controls">
+                <button class="control-btn submit">
+                    Submit
+                </button>
+                <button class="control-btn clear">
+                    Clear
+                </button>
+                
+            </section>
+
+            <section class="result">
+                <h2 class="result-title">result table</h2>
+                <ul class="list-result">
+                    
+                </ul>
+            </section>
+        </div>
+        <div class="modal-container d-none">
+            <section class="modal-content">
+                <h1 class="modal-title">bảng tổng kết</h1>
+                <h3 class="modal-description">chúc mừng thí chủ đã đạt được</h3>
+                <span class="modal-level"></span>
+                <span class="modal-score"></span>
+
+                <button class="modal-btn">Play again</button>
+            </section>
+        </div>
+        <div class="modal-container answer d-none">
+            <section class="modal-content correct d-none">
+                <h1 class="modal-title">correct</h1>
+                <h3 class="modal-description">you got <span class="modal-score">100</span> score</h3>
+
+                <button class="modal-btn correct-btn">Ok</button>
+            </section>
+
+            <section class="modal-content incorrect d-none">
+                <h1 class="modal-title">incorrect</h1>
+                <h3 class="modal-description">True answer is</h3>
+                <h3 class="modal-result"></h3>
+                <button class="modal-btn incorrect-btn">Ok</button>
+            </section>
+        </div>
+
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
