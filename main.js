@@ -41,7 +41,7 @@ const MAIN_VALUES = [
 ]
 
 const App = {
-    maxLevel: 3,
+    maxLevel: 10,
     isOn: false,
     curentResult: [],
     countIncorrect: 0,
