@@ -13,9 +13,22 @@ const modalIncorrect = document.querySelector('.modal-content.incorrect');
 const levelNumber = document.querySelector('.level-number');
 const modalResult = document.querySelector('.modal-result');
 const clearBtn = document.querySelector('button.clear');
+const nextBtn = document.querySelector('button.next');
 
 const MAIN_VALUES = [
     "apple",
+    "alone",
+    "angry",
+    "actor",
+    "alien",
+    "angel",
+    "alert",
+    "argee",
+    "album",
+    "brave",
+    "birth",
+    "begin",
+    "blade",
     "thing",
     "about",
     "check",
@@ -37,7 +50,32 @@ const MAIN_VALUES = [
     "happy",
     "bread",
     "break",
-    "fruit"
+    "fruit",
+    "world",
+    "music",
+    "heart",
+    "peace",
+    "voice",
+    "noise",
+    "sweet",
+    "laugh",
+    "limit",
+    "trust",
+    "great",
+    "funny",
+    "quick",
+    "brain",
+    "stone",
+    "flame",
+    "green",
+    "space",
+    "shine",
+    "zebra",
+    "tiger",
+    "whale",
+    "shark",
+    "horse",
+    "water"
 ]
 
 const App = {
@@ -65,30 +103,29 @@ const App = {
 
     },
     submitAnswer() {
-        submitBtn.onclick = function(e) {
-            let isFull = true;
-            let dataInput = [];
-            inputList.forEach(input => {
-                if(input.value != '') {
-                    dataInput.push(input.value.toLowerCase());
-                } else {
-                    isFull = false;
-                }
-            })
-            if(!isFull) {
-                alert('please enter full input');
-                return;
+        let isFull = true;
+        let dataInput = [];
+        inputList.forEach(input => {
+            if(input.value != '') {
+                dataInput.push(input.value.toLowerCase());
+            } else {
+                isFull = false;
             }
-           
-            const checkResult = App.checkData(dataInput, App.curentResult);
-            
-            App.logical(checkResult, dataInput);
-
-            //clear input
-            inputList.forEach((input, index) => {
-                if(index) input.value = '';
-            })
+        })
+        if(!isFull) {
+            alert('please enter full input');
+            return;
         }
+        
+        const checkResult = App.checkData(dataInput, App.curentResult);
+        
+        App.logical(checkResult, dataInput);
+
+        //clear input
+        inputList.forEach((input, index) => {
+            if(index) input.value = '';
+        })
+        
     },
     checkData(input, result) {
         const resultArray = result.map((value, index) => {
@@ -127,11 +164,9 @@ const App = {
         if(bolean) {
             App.trueLevel++;
             App.score += 100;
-            modalAnswer.classList.toggle('d-none');
-            modalCorrect.classList.toggle('d-none');
+            App.popUpEvent(modalAnswer, modalCorrect)
         } else {
-            modalAnswer.classList.toggle('d-none');
-            modalIncorrect.classList.toggle('d-none');
+            App.popUpEvent(modalAnswer, modalIncorrect)
             modalResult.innerText = App.curentResult.join('');
         }
         listResult.innerHTML = '';
@@ -141,6 +176,7 @@ const App = {
         App.countIncorrect = 0;
         App.getRandomText();
         levelNumber.innerText = `Level: ${App.level}`
+        App.rules();
     },
     rules() {
         if(App.countIncorrect >= 5) {
@@ -155,10 +191,52 @@ const App = {
         modalLevel.innerText = `correct: ${App.trueLevel}/${App.maxLevel}`;
         modalScore.innerText = `${App.score} score`;
     },
-    start() {
-        this.getRandomText();
-        this.submitAnswer();
+    popUpEvent(...modalList) {
+        modalList.forEach(modal => {
+            modal.classList.toggle('d-none');
+        })
+    },
+    focusPointer() {
+        for(input of inputList) {
+            if(input.value == '') {
+                input.focus();
+                console.log("focus");
+                return;
+            }
+        }
+    },
+    gameEventHandler() {
+        inputList.forEach(input => {
+            input.addEventListener('input', function(e) {
+                App.focusPointer();
+            })
+        })
         
+        window.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'Enter': {
+                    if(!(modalCorrect.classList.contains('d-none'))) {
+                        App.popUpEvent(modalCorrect, modalAnswer);
+                        break;
+                    } else if(!(modalIncorrect.classList.contains('d-none'))) {
+                        App.popUpEvent(modalIncorrect, modalAnswer);
+                        break;
+                    } else if(!(modal.classList.contains('d-none'))) {
+                        App.popUpEvent(modal);
+                        location.reload();
+                        break;
+                    }
+                    App.submitAnswer();
+                    App.focusPointer();
+                    break;
+                }
+                case 'ArrowRight': {
+                    App.resetGame(false);
+                    break;
+                }
+            }
+            
+        })
         modalBtn.onclick = function(e) {
             App.modalShow(modal);
             location.reload();
@@ -175,7 +253,24 @@ const App = {
             inputList.forEach((input, index) => {
                 if(index) input.value = '';
             })
+            App.focusPointer();
         }
+        submitBtn.onclick = function(e) {
+            App.submitAnswer();
+            App.focusPointer();
+        }
+        nextBtn.onclick = function(e) {
+            App.resetGame(false);
+            App.focusPointer();
+        }
+        
+
+    },
+    start() {
+        this.getRandomText();
+        this.gameEventHandler();
+        this.focusPointer(inputList);
+        
     }
 }
 App.start();

@@ -214,3 +214,6 @@ ul.list-result li span {
 .clear {
     background: rgb(0, 187, 255);
 }
+.next {
+    background: rgb(253, 29, 4);
+}
