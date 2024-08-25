@@ -1,3 +1,4 @@
+const container = document.querySelector('.container');
 const inputList = document.querySelectorAll('.input-group input')
 const submitBtn = document.querySelector('.submit');
 const listResult = document.querySelector('.list-result');
@@ -79,7 +80,7 @@ const MAIN_VALUES = [
 ]
 
 const App = {
-    maxLevel: 10,
+    maxLevel: 3,
     isOn: false,
     curentResult: [],
     countIncorrect: 0,
@@ -164,11 +165,12 @@ const App = {
         if(bolean) {
             App.trueLevel++;
             App.score += 100;
-            App.popUpEvent(modalAnswer, modalCorrect)
+            App.popUpEvent(modalAnswer, modalCorrect, container)
         } else {
-            App.popUpEvent(modalAnswer, modalIncorrect)
+            App.popUpEvent(modalAnswer, modalIncorrect, container)
             modalResult.innerText = App.curentResult.join('');
         }
+        
         listResult.innerHTML = '';
         App.isOn = false;
         App.curentResult = [];
@@ -216,10 +218,10 @@ const App = {
             switch(e.key) {
                 case 'Enter': {
                     if(!(modalCorrect.classList.contains('d-none'))) {
-                        App.popUpEvent(modalCorrect, modalAnswer);
+                        correctBtn.click();
                         break;
                     } else if(!(modalIncorrect.classList.contains('d-none'))) {
-                        App.popUpEvent(modalIncorrect, modalAnswer);
+                        incorrectBtn.click();
                         break;
                     } else if(!(modal.classList.contains('d-none'))) {
                         App.popUpEvent(modal);
@@ -231,7 +233,9 @@ const App = {
                     break;
                 }
                 case 'ArrowRight': {
-                    App.resetGame(false);
+                    if(modal.classList.contains('d-none') && modalAnswer.classList.contains('d-none')) {
+                        App.resetGame(false);
+                    }
                     break;
                 }
             }
@@ -242,12 +246,12 @@ const App = {
             location.reload();
         }
         correctBtn.onclick = function(e) {
-            modalAnswer.classList.toggle('d-none');
-            modalCorrect.classList.toggle('d-none');
+            App.popUpEvent(modalAnswer, modalCorrect, container);
+            App.focusPointer();
         }
         incorrectBtn.onclick = function(e) {
-            modalAnswer.classList.toggle('d-none');
-            modalIncorrect.classList.toggle('d-none');
+            App.popUpEvent(modalAnswer, modalIncorrect, container);
+            App.focusPointer();
         }
         clearBtn.onclick = function(e) {
             inputList.forEach((input, index) => {
