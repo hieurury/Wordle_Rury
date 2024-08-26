@@ -80,7 +80,7 @@ const MAIN_VALUES = [
 ]
 
 const App = {
-    maxLevel: 3,
+    maxLevel: 10,
     isOn: false,
     curentResult: [],
     countIncorrect: 0,
@@ -185,13 +185,15 @@ const App = {
             App.resetGame(false);
         }
         if(App.level > App.maxLevel) {
+            console.log("modal");
             App.modalShow();
         }
     },
     modalShow() {
-        modal.classList.toggle('d-none');
+        modal.classList.remove('d-none');
         modalLevel.innerText = `correct: ${App.trueLevel}/${App.maxLevel}`;
         modalScore.innerText = `${App.score} score`;
+        container.classList.add('d-none');
     },
     popUpEvent(...modalList) {
         modalList.forEach(modal => {
@@ -202,7 +204,6 @@ const App = {
         for(input of inputList) {
             if(input.value == '') {
                 input.focus();
-                console.log("focus");
                 return;
             }
         }
@@ -218,9 +219,11 @@ const App = {
             switch(e.key) {
                 case 'Enter': {
                     if(!(modalCorrect.classList.contains('d-none'))) {
+                        console.log("correct");
                         correctBtn.click();
                         break;
                     } else if(!(modalIncorrect.classList.contains('d-none'))) {
+                        console.log("incorrect");
                         incorrectBtn.click();
                         break;
                     } else if(!(modal.classList.contains('d-none'))) {
@@ -234,6 +237,7 @@ const App = {
                 }
                 case 'ArrowRight': {
                     if(modal.classList.contains('d-none') && modalAnswer.classList.contains('d-none')) {
+                        console.log("next");
                         App.resetGame(false);
                     }
                     break;
@@ -247,10 +251,12 @@ const App = {
         }
         correctBtn.onclick = function(e) {
             App.popUpEvent(modalAnswer, modalCorrect, container);
+            // App.rules();
             App.focusPointer();
         }
         incorrectBtn.onclick = function(e) {
             App.popUpEvent(modalAnswer, modalIncorrect, container);
+            // App.rules();
             App.focusPointer();
         }
         clearBtn.onclick = function(e) {
