@@ -210,12 +210,12 @@ const App = {
         }
         correctBtn.onclick = function(e) {
             App.popUpEvent(modalAnswer, modalCorrect, container);
-            // App.rules();
+            App.rules();
             App.focusPointer();
         }
         incorrectBtn.onclick = function(e) {
             App.popUpEvent(modalAnswer, modalIncorrect, container);
-            // App.rules();
+            App.rules();
             App.focusPointer();
         }
         clearBtn.onclick = function(e) {
