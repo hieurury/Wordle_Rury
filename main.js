@@ -12,28 +12,18 @@ const incorrectBtn = document.querySelector('.incorrect-btn');
 const modalCorrect = document.querySelector('.modal-content.correct');
 const modalIncorrect = document.querySelector('.modal-content.incorrect');
 const levelNumber = document.querySelector('.level-number');
-const modalResult = document.querySelector('.modal-result');
+const modalResultEnglish = document.querySelector('.modal-result.english');
+const modalResultVietnamese = document.querySelector('.modal-result.vietnamese');
 const clearBtn = document.querySelector('button.clear');
 const nextBtn = document.querySelector('button.next');
 
-const MAIN_VALUES = [
-    "about", "actor", "agree", "alien", "alone", "angel", "angry", "apple", "arrow", "baker",
-    "beach", "begin", "birth", "blade", "blaze", "blink", "blush", "brain", "bread", "break",
-    "brave", "cargo", "chair", "check", "child", "cheap", "chess", "cloak", "cliff", "cloud",
-    "couch", "creek", "creep", "crisp", "crown", "dance", "dream", "drift", "flame", "flock",
-    "float", "flood", "flute", "focus", "fruit", "funny", "fuzzy", "glass", "globe", "glory",
-    "gloom", "grass", "great", "green", "grove", "happy", "heart", "hippo", "horse", "human",
-    "image", "jelly", "jewel", "knife", "laser", "laugh", "light", "limit", "magic", "major",
-    "money", "mount", "music", "night", "noise", "ocean", "olive", "orbit", "paint", "peace",
-    "piano", "plant", "plumb", "plush", "punch", "quick", "quack", "quilt", "ranch", "razor",
-    "ridge", "river", "shine", "shift", "shark", "smile", "snail", "sound", "space", "stalk",
-    "stone", "storm", "story", "sting", "swirl", "sweet", "table", "thing", "tiger", "toast",
-    "torch", "trade", "trust", "trunk", "vivid", "voice", "wagon", "water", "whale", "woman",
-    "world", "write", "zebra"
-  ];
+
+
+
   
 
 const App = {
+    MAIN_VALUES: [],
     maxLevel: 10,
     isOn: false,
     curentResult: [],
@@ -42,16 +32,34 @@ const App = {
     level: 1,
     trueLevel: 0,
     oldIndex: [],
+    async loadData(api) {
+        const dataAPI = await fetch(api);
+        const dataConvert = await dataAPI.json();
+        return dataConvert;
+    },
     getRandomText() {
+        /**
+         * ? kiểm tra xem chương trình có làm mới chưa: 
+         * * nếu chưa làm mới thì không làm gì
+         * * nếu đã làm mới thì random text mới
+         * @author: hieuruy
+        **/
+
         if(this.isOn == false) {
-            let numRand = Math.floor(Math.random() * MAIN_VALUES.length);
+            let numRand = Math.floor(Math.random() * App.MAIN_VALUES.length);
             while(App.oldIndex.includes(numRand)) {
-                numRand = Math.floor(Math.random() * MAIN_VALUES.length);
+                numRand = Math.floor(Math.random() * App.MAIN_VALUES.length);
             }
+            //lưu lại dữ liệu đã random rồi
             App.oldIndex.push(numRand);
-            const text = MAIN_VALUES[numRand];
+
+            //thực hiện tách kí tự tiếng Anh ra để xử lí
+            const text = App.MAIN_VALUES[numRand].English;
             const resultValue = text.split('');
-            App.curentResult = [...resultValue];
+            //lưu lại dữ liệu hiện tại
+            App.curentResult = App.MAIN_VALUES[numRand];
+
+            //gán dữ liệu gợi ý ở ô input đầu tiên
             inputList[0].value = resultValue[0];
 
         }
@@ -71,8 +79,8 @@ const App = {
             alert('please enter full input');
             return;
         }
-        
-        const checkResult = App.checkData(dataInput, App.curentResult);
+        const currentData = App.curentResult.English.split('');
+        const checkResult = App.checkData(dataInput, currentData);
         
         App.logical(checkResult, dataInput);
 
@@ -122,7 +130,8 @@ const App = {
             App.popUpEvent(modalAnswer, modalCorrect, container)
         } else {
             App.popUpEvent(modalAnswer, modalIncorrect, container)
-            modalResult.innerText = App.curentResult.join('');
+            modalResultEnglish.innerText = App.curentResult.English;
+            modalResultVietnamese.innerText = `vietnamese: ${App.curentResult.Vietnamese}`;
         }
         
         listResult.innerHTML = '';
@@ -139,7 +148,6 @@ const App = {
             App.resetGame(false);
         }
         if(App.level > App.maxLevel) {
-            console.log("modal");
             App.modalShow();
         }
     },
@@ -173,11 +181,9 @@ const App = {
             switch(e.key) {
                 case 'Enter': {
                     if(!(modalCorrect.classList.contains('d-none'))) {
-                        console.log("correct");
                         correctBtn.click();
                         break;
                     } else if(!(modalIncorrect.classList.contains('d-none'))) {
-                        console.log("incorrect");
                         incorrectBtn.click();
                         break;
                     } else if(!(modal.classList.contains('d-none'))) {
@@ -191,7 +197,6 @@ const App = {
                 }
                 case 'ArrowRight': {
                     if(modal.classList.contains('d-none') && modalAnswer.classList.contains('d-none')) {
-                        console.log("next");
                         App.resetGame(false);
                     }
                     break;
@@ -230,7 +235,8 @@ const App = {
         
 
     },
-    start() {
+    async start() {
+        this.MAIN_VALUES = await this.loadData('data.json');
         this.getRandomText();
         this.gameEventHandler();
         this.focusPointer(inputList);

@@ -144,6 +144,14 @@ ul.list-result li span {
     background: #fff;
     border-radius: 4px;
 }
+.modal-result.vietnamese {
+    font-size: 16px;
+    letter-spacing: 0;
+    background: transparent;
+    color: #fff;
+    text-align: left;
+    font-style: italic;
+}
 @media screen and (max-width: 480px) {
     .main {
         padding: 4px 12px;
