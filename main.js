@@ -16,7 +16,8 @@ const modalResultEnglish = document.querySelector('.modal-result.english');
 const modalResultVietnamese = document.querySelector('.modal-result.vietnamese');
 const clearBtn = document.querySelector('button.clear');
 const nextBtn = document.querySelector('button.next');
-
+const timeClock = document.querySelector('.count-down .timer');
+const countDownContent = document.querySelector('.count-down .count-down-content');
 
 
 
@@ -32,6 +33,8 @@ const App = {
     level: 1,
     trueLevel: 0,
     oldIndex: [],
+    countDown: 120,
+    saveTimeDown: null,
     async loadData(api) {
         const dataAPI = await fetch(api);
         const dataConvert = await dataAPI.json();
@@ -61,6 +64,7 @@ const App = {
 
             //gán dữ liệu gợi ý ở ô input đầu tiên
             inputList[0].value = resultValue[0];
+            this.setCountDown();
 
         }
 
@@ -133,13 +137,12 @@ const App = {
             modalResultEnglish.innerText = App.curentResult.English;
             modalResultVietnamese.innerText = `vietnamese: ${App.curentResult.Vietnamese}`;
         }
-        
+        clearInterval(App.saveTimeDown);
         listResult.innerHTML = '';
         App.isOn = false;
         App.curentResult = [];
         App.level += 1;
         App.countIncorrect = 0;
-        App.getRandomText();
         levelNumber.innerText = `Level: ${App.level}`
         App.rules();
     },
@@ -212,11 +215,13 @@ const App = {
             App.popUpEvent(modalAnswer, modalCorrect, container);
             App.rules();
             App.focusPointer();
+            App.getRandomText();
         }
         incorrectBtn.onclick = function(e) {
             App.popUpEvent(modalAnswer, modalIncorrect, container);
             App.rules();
             App.focusPointer();
+            App.getRandomText();
         }
         clearBtn.onclick = function(e) {
             inputList.forEach((input, index) => {
@@ -234,6 +239,26 @@ const App = {
         }
         
 
+    },
+    setCountDown() {
+        let timer = this.countDown;
+        App.saveTimeDown = setInterval(() => {
+            if(timer <= 0) {
+                clearInterval(App.saveTimeDown);
+                App.resetGame(false);
+            }
+            const minutes = Math.floor(timer / 60);
+            const second = Math.floor(timer % 60);
+            const progress = Math.floor(timer / App.countDown * 100);
+            let timerHTML;
+            if(second < 10) timerHTML = `${minutes}:0${second}`;
+            else timerHTML = `${minutes}:${second}`;
+
+            timeClock.innerText = timerHTML;
+            countDownContent.style.width = `${progress}%`
+            console.log(timerHTML, progress);
+            timer--;
+        }, 1000)
     },
     async start() {
         this.MAIN_VALUES = await this.loadData('data.json');

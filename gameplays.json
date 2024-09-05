@@ -1,0 +1,23 @@
+[
+    {
+        "rules": "Wordle là một trò chơi dự đoán từ vựng tiếng Anh được lấy ý tưởng từ một game show cùng tên. Trong trò chơi bạn sẽ phải tìm các kí tự thích hợp để điền vào các ô trống còn thiếu và hoàn thành từ vựng. Tuỳ vào mức độ trò chơi bạn sẽ có các từ với độ dài khác nhau và số lượng từ gợi ý khác nhau. Những kí tự không tồn tại trong từ sẽ được biểu hiện bằng màu <span class='error-bg'>đỏ</span>. Các kí tự có tồn tại nhưng được đặt sai vị trí sẽ có màu <span class='warn-bg'>vàng</span>. Những kí tự đúng sẽ được biểu hiện bằng màu <span class='success-bg'>xanh</span>. Bạn có 5 lần sai và với mỗi câu đúng bạn sẽ có 100đ.",
+        "name": "single-play",
+        "description": "Chế độ chơi đơn là chế độ cơ bản nhất. bạn có thể tuỳ ý lựa chọn số lượng <span class=\"normal-bg\">vòng chơi</span>. Sau một khoảng thời gian nhất định <span class=\"warn-bg\">(khoảng 2 phút cho một câu)</span> trò chơi sẽ tự kết thúc.",
+        "type": "Chơi đơn",
+        "about": "<li>giới hạn câu hỏi</li><li>giới hạn thời gian</li><li>1 kí tự gợi ý</li>"
+    },
+    {
+        "rules": "Wordle là một trò chơi dự đoán từ vựng tiếng Anh được lấy ý tưởng từ một game show cùng tên. Trong trò chơi bạn sẽ phải tìm các kí tự thích hợp để điền vào các ô trống còn thiếu và hoàn thành từ vựng. Tuỳ vào mức độ trò chơi bạn sẽ có các từ với độ dài khác nhau và số lượng từ gợi ý khác nhau. Những kí tự không tồn tại trong từ sẽ được biểu hiện bằng màu <span class='error-bg'>đỏ</span>. Các kí tự có tồn tại nhưng được đặt sai vị trí sẽ có màu <span class='warn-bg'>vàng</span>. Những kí tự đúng sẽ được biểu hiện bằng màu <span class='success-bg'>xanh</span>. Bạn có 5 lần sai và với mỗi câu đúng bạn sẽ có 100đ.",
+        "name": "coop-play",
+        "description": "Chế độ chơi đội là chế độ nâng cao. Sẽ bao gồm 2 đội đấu với nhau bằng cơ chế <span class=\"warn-bg\">tích điểm</span>. Bạn có thể tuỳ ý lựa chọn số lượng <span class=\"normal-bg\">vòng chơi</span>. Sau một khoảng thời gian nhất định <span class=\"warn-bg\">(khoảng 2 phút cho một câu)</span> trò chơi sẽ tự kết thúc.",
+        "type": "Chơi đội",
+        "about": "<li>giới hạn câu hỏi</li><li>giới hạn thời gian</li><li>1 kí tự gợi ý</li>"
+    },
+    {
+        "rules": "Wordle là một trò chơi dự đoán từ vựng tiếng Anh được lấy ý tưởng từ một game show cùng tên. Trong trò chơi bạn sẽ phải tìm các kí tự thích hợp để điền vào các ô trống còn thiếu và hoàn thành từ vựng. Tuỳ vào mức độ trò chơi bạn sẽ có các từ với độ dài khác nhau và số lượng từ gợi ý khác nhau. Những kí tự không tồn tại trong từ sẽ được biểu hiện bằng màu <span class='error-bg'>đỏ</span>. Các kí tự có tồn tại nhưng được đặt sai vị trí sẽ có màu <span class='warn-bg'>vàng</span>. Những kí tự đúng sẽ được biểu hiện bằng màu <span class='success-bg'>xanh</span>. Bạn có 5 lần sai và với mỗi câu đúng bạn sẽ có 100đ.",
+        "name": "survival-play",
+        "description": "Chế độ chơi đội là chế độ nâng cao. Sẽ bao gồm 2 đội đấu với nhau bằng cơ chế <span class=\"warn-bg\">tích điểm</span>. Bạn có thể tuỳ ý lựa chọn số lượng <span class=\"normal-bg\">vòng chơi</span>. Sau một khoảng thời gian nhất định <span class=\"warn-bg\">(khoảng 2 phút cho một câu)</span> trò chơi sẽ tự kết thúc.",
+        "type": "Chơi sinh tồn",
+        "about": "<li>không giới hạn câu hỏi</li><li>không giới hạn thời gian</li><li>1 kí tự gợi ý</li><li>có 3 lần sai</li>"
+    }
+]

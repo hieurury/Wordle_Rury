@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Dancing+Script:wght@400..700&display=swap');
+@import url('home.css');
+
+:root {
+    --normal-bg: linear-gradient(45deg, #00B4DB, #0083B0);
+    --high-bg: linear-gradient(45deg, #000046, #1CB5E0);
+    --warn-bg: orange;
+    --success-bg: green;
+    --error-bg: red;
+    --primary-bg: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Cabin;
+}
+.d-none {
+    display: none;
+}
+.normal-bg {
+    background: var(--normal-bg);
+    color: #fff;
+    border-radius: 2px;
+}
+.high-bg {
+    background: var(--high-bg);
+    color: #fff;
+    border-radius: 2px;
+}
+.primary-bg {
+    background: var(--primary-bg);
+    color: #fff;
+    border-radius: 2px;
+}
+.success-bg {
+    background: var(--success-bg);
+    color: #fff;
+    border-radius: 2px;
+}
+.warn-bg {
+    background: var(--warn-bg);
+    color: #fff;
+    border-radius: 2px;
+}
+.error-bg {
+    background: var(--error-bg);
+    color: #fff;
+    border-radius: 2px;
+}

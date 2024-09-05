@@ -22,6 +22,22 @@
     font-size: 26px;
     color: orange;
 }
+.count-down .timer {
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+.count-down .count-down-container {
+    width: 100%;
+    height: 15px;
+    border-radius: 2px;
+    border: 1px solid #000;
+}
+.count-down .count-down-content {
+    width: 100%;
+    height: 100%;
+    background: orange;
+    transition: all linear .1s;
+}
 .controls {
     display: flex;
     justify-content: center;
